@@ -45,6 +45,7 @@ const defaultSpecs = [
 const raw: Omit<Product, "group">[] = [
   {
     id: "excalibur-hanchi-88g",
+    image: "/products/1.png",
     name: "챔프코리아 엑스컬리버 한치 풀치 낚시대 88g",
     series: "엑스컬리버 · 한치 풀치",
     groupNo: 1,
@@ -60,6 +61,7 @@ const raw: Omit<Product, "group">[] = [
   },
   {
     id: "wolhajoeo-daemul-30",
+    image: "/products/2.png",
     name: "챔프코리아 월하조어 민물낚시대 붕어 잉어 장어 로드 대물대 30",
     series: "민물낚시대 · 월하조어",
     groupNo: 2,
@@ -72,6 +74,7 @@ const raw: Omit<Product, "group">[] = [
   },
   {
     id: "seaguardian-walking",
+    image: "/products/3.png",
     name: "챔프코리아 씨가디언 워킹 풀치 낚시대",
     series: "씨가디언 · 워킹 풀치",
     groupNo: 1,
@@ -85,6 +88,7 @@ const raw: Omit<Product, "group">[] = [
   },
   {
     id: "jjukuhunter-165mhl",
+    image: "/products/4.png",
     name: "챔프코리아 쭈꾸헌터 쭈꾸미 낚시대 선상 로드 초경량",
     series: "초경량 쭈꾸미 · 쭈꾸헌터 165MHL",
     groupNo: 1,
@@ -97,6 +101,7 @@ const raw: Omit<Product, "group">[] = [
   },
   {
     id: "wolhajoeo-gyeongryang-16",
+    image: "/products/5.png",
     name: "챔프코리아 월하조어 민물낚시대 붕어 잉어 장어 로드 경량대 16",
     series: "민물낚시대 · 월하조어",
     groupNo: 2,
@@ -111,6 +116,7 @@ const raw: Omit<Product, "group">[] = [
   },
   {
     id: "octopushunter-gapojingeo",
+    image: "/products/6.png",
     name: "챔프코리아 옥토푸스헌터 선상 갑오징어 낚시대",
     series: "선상 갑오징어 · 티타늄 초릿대 베이트",
     groupNo: 1,
@@ -124,6 +130,7 @@ const raw: Omit<Product, "group">[] = [
   },
   {
     id: "zest-suchojeolgeogi-11m",
+    image: "/products/7.png",
     name: "챔프코리아 제스트 수초제거기 풀카본 고탄성 11m",
     series: "제스트 · 풀카본 수초제거기",
     groupNo: 2,
@@ -137,6 +144,7 @@ const raw: Omit<Product, "group">[] = [
   },
   {
     id: "vesta-muneo",
+    image: "/products/8.png",
     name: "챔프코리아 베스타 선상 문어 낚시대 대물 전용 경질대",
     series: "베스타 · 선상 문어 경질대",
     groupNo: 1,
@@ -149,6 +157,7 @@ const raw: Omit<Product, "group">[] = [
   },
   {
     id: "galchi-zoom-480-660",
+    image: "/products/9.png",
     name: "챔프코리아 고급형 갈치낚시대 줌480-660 선상낚시대",
     series: "고급형 · 줌 480-660 선상",
     groupNo: 1,
@@ -161,6 +170,7 @@ const raw: Omit<Product, "group">[] = [
   },
   {
     id: "prohunter-gapojingeo-egi",
+    image: "/products/10.png",
     name: "챔프코리아 프로헌터 갑오징어 쭈꾸미 낚시대 선상 에깅 로드",
     series: "초경량 · 프로헌터 선상 에깅",
     groupNo: 1,

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { Award, Factory, Globe, Users } from "lucide-react";
 import PageHeader from "@/components/PageHeader";
 import Reveal from "@/components/Reveal";
@@ -58,10 +59,15 @@ export default function GreetingsPage() {
         {/* CEO message */}
         <Reveal>
           <div className="mt-20 grid gap-10 rounded-3xl bg-surface p-8 lg:grid-cols-[1fr_1.6fr] lg:p-12">
-            <div
-              className="aspect-[4/5] rounded-2xl"
-              style={{ background: "linear-gradient(150deg,#0d1622,#0b6fc2)" }}
-            />
+            <div className="relative aspect-[4/5] overflow-hidden rounded-2xl">
+              <Image
+                src="/about/ceo-greeting.png"
+                alt="낚싯대 제조 현장에서 제품을 살펴보는 챔프코리아 리더"
+                fill
+                sizes="(max-width: 1024px) 100vw, 34vw"
+                className="object-cover"
+              />
+            </div>
             <div>
               <p className="text-sm font-bold tracking-[0.18em] text-accent">CEO 인사말</p>
               <h3 className="mt-3 text-2xl font-extrabold text-ink">
