@@ -1,26 +1,76 @@
+/* Pretendard — same typeface as the original NS site */
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css");
 @import "tailwindcss";
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #14171c;
+
+  /* Brand palette — deep ocean navy + signal red point */
+  --ink: #0d1622;        /* header / dark sections */
+  --ink-soft: #1c2735;
+  --accent: #0b6fc2;     /* primary brand blue */
+  --accent-dark: #084e8a;
+  --point: #e3122d;      /* red call-to-action point */
+  --line: #e6e8ec;       /* hairline borders */
+  --muted: #6b7280;      /* secondary text */
+  --surface: #f5f6f8;    /* light section bg */
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-accent: var(--accent);
+  --color-accent-dark: var(--accent-dark);
+  --color-point: var(--point);
+  --color-line: var(--line);
+  --color-muted: var(--muted);
+  --color-surface: var(--surface);
+  --font-sans: "Pretendard", system-ui, -apple-system, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  letter-spacing: -0.01em;
+}
+
+/* Centered max-width container, mirrors original ".contain" */
+.contain {
+  width: 100%;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding-inline: 20px;
+}
+
+/* Reveal-on-scroll utility (replaces the original WOW.js fadeInUp) */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* Hide scrollbar for horizontal chip rows */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
