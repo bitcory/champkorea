@@ -8,10 +8,11 @@ import Autoplay from "embla-carousel-autoplay";
 type Slide =
   | {
       type: "image";
-      src: string;
+      src: string; // desktop (wide)
+      mobileSrc: string; // mobile (full 16:9)
       alt: string;
       href: string;
-      // bias the crop on narrow screens so the headline stays visible
+      // bias the desktop crop so the headline stays visible
       position?: string;
     }
   | {
@@ -28,6 +29,7 @@ const slides: Slide[] = [
   {
     type: "image",
     src: "/hero/banner-hero-v2.png",
+    mobileSrc: "/hero/banner-mobile.png",
     alt: "40년 제조 기술로 완성한 선상 전문 로드 — CHAMP KOREA",
     href: "/product?cat=7",
     position: "35% center",
@@ -52,6 +54,10 @@ const slides: Slide[] = [
   },
 ];
 
+// Mobile = 16:9 (full banner, no crop). Tablet/desktop = fixed heights.
+const slideBox =
+  "relative aspect-[16/9] sm:aspect-auto sm:h-[480px] lg:h-[600px]";
+
 export default function MainVisual() {
   const [emblaRef, embla] = useEmblaCarousel({ loop: true }, [
     Autoplay({ delay: 5000, stopOnInteraction: false }),
@@ -74,16 +80,26 @@ export default function MainVisual() {
         <div className="flex">
           {slides.map((s, i) => (
             <div key={i} className="relative min-w-0 flex-[0_0_100%]">
-              <div className="relative h-[440px] sm:h-[520px] lg:h-[600px]">
+              <div className={slideBox}>
                 {s.type === "image" ? (
                   <a href={s.href} className="block h-full w-full" aria-label={s.alt}>
+                    {/* Mobile — full 16:9 banner, no crop */}
+                    <Image
+                      src={s.mobileSrc}
+                      alt={s.alt}
+                      fill
+                      priority={i === 0}
+                      sizes="100vw"
+                      className="object-cover lg:hidden"
+                    />
+                    {/* Desktop — wide banner */}
                     <Image
                       src={s.src}
                       alt={s.alt}
                       fill
                       priority={i === 0}
                       sizes="100vw"
-                      className="object-cover"
+                      className="hidden object-cover lg:block"
                       style={{ objectPosition: s.position ?? "center" }}
                     />
                   </a>
@@ -94,18 +110,18 @@ export default function MainVisual() {
                   >
                     <div className="contain">
                       <div className="max-w-xl text-white">
-                        <p className="mb-4 text-sm font-semibold tracking-[0.2em] text-white/70">
+                        <p className="mb-2 text-xs font-semibold tracking-[0.2em] text-white/70 sm:mb-4 sm:text-sm">
                           {s.eyebrow}
                         </p>
-                        <h2 className="whitespace-pre-line text-4xl font-extrabold leading-tight sm:text-5xl lg:text-6xl">
+                        <h2 className="whitespace-pre-line text-2xl font-extrabold leading-tight sm:text-4xl lg:text-6xl">
                           {s.title}
                         </h2>
-                        <p className="mt-5 text-base text-white/80 sm:text-lg">
+                        <p className="mt-3 text-sm text-white/80 sm:mt-5 sm:text-base lg:text-lg">
                           {s.desc}
                         </p>
                         <a
                           href={s.href}
-                          className="mt-8 inline-flex items-center gap-2 rounded-full bg-white px-7 py-3.5 text-sm font-bold text-ink transition-transform hover:scale-105"
+                          className="mt-4 inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-xs font-bold text-ink transition-transform hover:scale-105 sm:mt-8 sm:px-7 sm:py-3.5 sm:text-sm"
                         >
                           {s.cta}
                           <span>→</span>
@@ -121,7 +137,7 @@ export default function MainVisual() {
       </div>
 
       {/* Dots */}
-      <div className="absolute bottom-6 left-1/2 z-10 flex -translate-x-1/2 gap-2.5">
+      <div className="absolute bottom-4 left-1/2 z-10 flex -translate-x-1/2 gap-2.5 sm:bottom-6">
         {slides.map((_, i) => (
           <button
             key={i}
