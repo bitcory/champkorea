@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import { Search, Menu, Store } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { mainNav, productGroups } from "@/lib/navigation";
 import MobileMenu from "./MobileMenu";
 
@@ -100,8 +101,21 @@ export default function Header() {
           </ul>
         </div>
 
-        {/* Mega panel */}
-        {openMenu && <MegaPanel label={openMenu} />}
+        {/* Mega panel — distinct lighter surface + smooth slide-down */}
+        <AnimatePresence>
+          {openMenu && (
+            <motion.div
+              key="mega"
+              initial={{ opacity: 0, y: -12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.26, ease: [0.22, 1, 0.36, 1] }}
+              className="absolute inset-x-0 top-full origin-top overflow-hidden border-t-2 border-sky-500 bg-gradient-to-b from-[#1b2940] to-[#16202f] shadow-[0_24px_48px_-12px_rgba(0,0,0,0.55)]"
+            >
+              <MegaPanel label={openMenu} />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
       <MobileMenu open={mobileOpen} onClose={() => setMobileOpen(false)} />
@@ -113,52 +127,48 @@ function MegaPanel({ label }: { label: string }) {
   const item = mainNav.find((n) => n.label === label);
   if (!item) return null;
 
-  // Product mega-menu — three-level grid (dark, professional look)
+  // Product mega-menu — three-level grid (lighter surface, professional look)
   if (item.productGroups) {
     return (
-      <div className="absolute inset-x-0 top-full border-t border-white/10 bg-ink text-white shadow-2xl">
-        <div className="contain grid grid-cols-4 gap-8 py-9">
-          {productGroups.map((group) => (
-            <div key={group.no}>
-              <Link
-                href={`/product?cat=${group.no}`}
-                className="mb-3 block border-b border-white/10 pb-2 text-base font-bold text-white hover:text-sky-400"
-              >
-                {group.name}
-              </Link>
-              <ul className="space-y-1.5">
-                {group.categories.map((cat) => (
-                  <li key={cat.no}>
-                    <Link
-                      href={`/product?cat=${cat.no}`}
-                      className="text-sm text-white/55 transition-colors hover:text-sky-400"
-                    >
-                      {cat.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
+      <div className="contain grid grid-cols-4 gap-8 py-9 text-white">
+        {productGroups.map((group) => (
+          <div key={group.no}>
+            <Link
+              href={`/product?cat=${group.no}`}
+              className="mb-3 block border-b border-sky-500/30 pb-2 text-base font-bold text-white transition-colors hover:text-sky-400"
+            >
+              {group.name}
+            </Link>
+            <ul className="space-y-0.5">
+              {group.categories.map((cat) => (
+                <li key={cat.no}>
+                  <Link
+                    href={`/product?cat=${cat.no}`}
+                    className="-mx-2 block rounded-md px-2 py-1 text-sm text-slate-300 transition-colors hover:bg-white/5 hover:text-sky-400"
+                  >
+                    {cat.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </div>
     );
   }
 
   if (item.children) {
     return (
-      <div className="absolute inset-x-0 top-full border-t border-white/10 bg-ink text-white shadow-2xl">
-        <div className="contain flex flex-wrap gap-x-8 gap-y-2 py-6">
-          {item.children.map((c) => (
-            <Link
-              key={c.href + c.label}
-              href={c.href}
-              className="text-sm text-white/55 transition-colors hover:text-sky-400"
-            >
-              {c.label}
-            </Link>
-          ))}
-        </div>
+      <div className="contain flex flex-wrap gap-x-2 gap-y-1 py-5 text-white">
+        {item.children.map((c) => (
+          <Link
+            key={c.href + c.label}
+            href={c.href}
+            className="rounded-md px-3 py-1.5 text-sm text-slate-300 transition-colors hover:bg-white/5 hover:text-sky-400"
+          >
+            {c.label}
+          </Link>
+        ))}
       </div>
     );
   }
